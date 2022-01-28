@@ -3,18 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "npm run format && npm run tslint",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "tslint": "tslint -p . -c tslint.json",
+    "format": "prettier --write \"styles/**/*\" \"components/**/*\" \"layouts/**/*\" \"pages/**/*\" \"types/**/*\" \"utils/**/*\""
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^4.0.10",
     "next": "12.0.7",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "sass": "^1.47.0"
   },
   "devDependencies": {
+    "@types/marked": "^4.0.1",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
     "eslint": "8.6.0",
-    "eslint-config-next": "12.0.7"
+    "eslint-config-next": "12.0.7",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^4.5.4"
   }
 }

@@ -1,0 +1,20 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+.footerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8em;
+  .contactIcon {
+    cursor: pointer;
+    color: $secondaryColor;
+    transition: 0.3s;
+    margin-left: 20px;
+    margin-right: 20px;
+    &:hover {
+      color: $quinaryColor;
+    }
+  }
+}

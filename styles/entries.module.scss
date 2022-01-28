@@ -1,0 +1,14 @@
+@import './styles/variables.scss';
+@import './styles/mixins.scss';
+
+.viewMoreContainer {
+  width: 100%;
+  display: flex;
+  @include xs {
+    margin-top: 0px;
+  }
+  @include sm {
+    margin-top: 40px;
+  }
+  justify-content: center;
+}

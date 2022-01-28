@@ -1,0 +1,25 @@
+@import '../styles/variables.scss';
+@import '../styles/mixins.scss';
+
+.bodyContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  .contentContainer {
+    width: 100%;
+    @include xs {
+      margin: 20px 20px 20px 20px;
+      padding: 20px 20px 20px 20px;
+    }
+    @include md {
+      margin: 50px 50px 0px 50px;
+    }
+    @include lg {
+      max-width: 50em;
+    }
+    @include xl {
+      max-width: 70em;
+    }
+  }
+}

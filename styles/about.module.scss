@@ -1,0 +1,41 @@
+@import './styles/variables.scss';
+@import './styles/mixins.scss';
+
+.aboutContainer {
+  .rowContainer {
+    display: flex;
+    width: 100%;
+    @include xs {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+    @include md {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .aboutInformationContainer {
+      color: $quinaryColor;
+
+      @include xs {
+        margin-top: 2em;
+      }
+      @include md {
+        margin-top: 0;
+        margin-right: 3em;
+      }
+    }
+    .imageContainer {
+      flex-shrink: 0;
+      position: relative;
+      height: 100px;
+      width: 100px;
+
+      height: 300px;
+      width: 300px;
+
+      overflow: hidden;
+      border-radius: 50%;
+    }
+  }
+}

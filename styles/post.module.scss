@@ -1,0 +1,53 @@
+@import './styles/variables.scss';
+@import './styles/mixins.scss';
+
+.postContainer {
+  color: $quinaryColor;
+  .articleDate {
+    margin-bottom: 1em;
+    font-weight: bold;
+  }
+  .articleMainPicture {
+    position: relative;
+    @include xs {
+      height: 10em;
+    }
+    @include sm {
+      height: 15em;
+    }
+    @include md {
+      height: 18em;
+    }
+    @include lg {
+      height: 20em;
+    }
+    width: 100%;
+    overflow: hidden;
+  }
+  .articleContainer {
+    margin-top: 1em;
+    .articleTitle {
+      font-size: 1.5rem;
+      color: $quinaryColor;
+      @include md {
+        font-size: 2.5rem;
+      }
+      font-weight: bold;
+    }
+    .articleDescription {
+      margin-top: 1em;
+      font-style: italic;
+    }
+
+    .articleTime {
+      margin-top: 1em;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .articleBody {
+      margin-top: 2em;
+    }
+  }
+}

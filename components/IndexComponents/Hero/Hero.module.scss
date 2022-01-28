@@ -1,0 +1,97 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+$extraSmallHeight: 10em;
+$smallHeight: 15em;
+$mediumHeight: 25em;
+
+.heroContainer {
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
+  display: flex;
+  height: $extraSmallHeight;
+  @include sm {
+    height: $smallHeight;
+  }
+  @include md {
+    height: $mediumHeight;
+  }
+  margin-top: 1em;
+  margin-bottom: 1em;
+  background-color: $secondaryColor;
+  color: $quinaryColor;
+  transition: 0.3s;
+  border: $secondaryColor 1px solid;
+  &:hover {
+    background-color: $primaryColor;
+  }
+  .articleSummaryContainer {
+    height: 100%;
+    overflow: hidden;
+    margin-left: 1em;
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .articleTitle {
+      overflow: hidden;
+      font-size: 1.2em;
+      padding-bottom: 0.2em;
+      @include xs {
+        -webkit-line-clamp: 3;
+      }
+      @include sm {
+        -webkit-line-clamp: 2;
+      }
+      @include md {
+        font-size: 1.5em;
+        padding-bottom: 0.5em;
+      }
+      font-weight: bold;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+    .articleDescription {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: none;
+      @include sm {
+        display: block;
+      }
+      font-style: italic;
+    }
+    .articleTime {
+      margin-top: auto;
+      font-size: 0.8em;
+      align-self: flex-end;
+    }
+    .articleDate {
+      font-size: 0.8em;
+
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+    .articleSummary {
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      display: none;
+      @include md {
+        display: -webkit-box;
+        margin-top: 1em;
+        max-height: 15em;
+        height: 15em;
+      }
+    }
+  }
+
+  .articleMainPicture {
+    border-radius: 5px;
+    overflow: hidden;
+    flex-basis: 40%;
+    position: relative;
+    height: 100%;
+  }
+}

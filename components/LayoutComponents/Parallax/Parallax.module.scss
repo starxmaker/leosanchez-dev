@@ -1,0 +1,54 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+.parallax {
+  background-image: url('../../../public/assets/hero.jpg');
+  min-height: 15em;
+  @include md {
+    min-height: 30em;
+  }
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.parallaxContainer {
+  position: relative;
+  height: 15em;
+  @include md {
+    height: 30em;
+  }
+  overflow: hidden;
+
+  .parallaxCaption {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: $quinaryColor;
+    height: 100%;
+    width: 100%;
+    font-size: 2em;
+    padding-right: 20px;
+    padding-top: 50px;
+
+    @include md {
+      padding-right: 100px;
+      font-size: 4em;
+      padding-top: 0px;
+    }
+    .developerName {
+      font-weight: 600;
+    }
+    .subtitle {
+      color: $quaternaryColor;
+      font-weight: 300;
+    }
+  }
+}

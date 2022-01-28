@@ -1,0 +1,95 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+.articleItemContainer {
+  cursor: pointer;
+  color: $quinaryColor;
+  transition: 0.3s;
+  background-color: $secondaryColor;
+  &:hover {
+    background-color: $quinaryColor;
+    color: $secondaryColor;
+  }
+  border-radius: 10px;
+  display: flex;
+
+  @include xs {
+    flex-direction: row-reverse;
+    margin-bottom: 30px;
+  }
+  @include sm {
+    flex-direction: column;
+    margin-bottom: 0px;
+  }
+
+  .articleMainPictureContainer {
+    @include xs {
+      height: 6em;
+      width: 25em;
+    }
+    @include sm {
+      height: 12em;
+      width: 100%;
+    }
+    .articleMainPicture {
+      @include xs {
+        border-radius: 0px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+      @include sm {
+        border-radius: 0px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      overflow: hidden;
+      flex-basis: 40%;
+      position: relative;
+      height: 100%;
+    }
+  }
+  .articleCaption {
+    display: flex;
+    flex-direction: column;
+
+    @include xs {
+      padding: 5px 10px 5px 10px;
+    }
+    @include sm {
+      padding: 15px 15px 15px 15px;
+    }
+    .articleDate {
+      font-size: 0.8em;
+    }
+    .articleTitle {
+      overflow: hidden;
+
+      @include xs {
+        padding-top: 0.2em;
+        margin-bottom: 0.4em;
+        -webkit-line-clamp: 2;
+        font-size: 0.9em;
+      }
+      @include sm {
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
+        margin-bottom: 0.2em;
+        -webkit-line-clamp: 2;
+      }
+      @include md {
+        font-size: 1em;
+      }
+      font-weight: bold;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+
+    .articleTime {
+      width: 100%;
+      display: flex;
+      font-size: 0.8em;
+      justify-content: flex-end;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+.mainContainer {
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $primaryColor;
+  color: $quinaryColor;
+  height: 50px;
+  align-items: center;
+  padding-left: 10px;
+  @include md {
+    padding-left: 50px;
+  }
+
+  .brandColumn {
+    cursor: pointer;
+    flex: 0 0 18em;
+    font-size: large;
+    font-weight: 600;
+    .developerName {
+      margin-right: 10px;
+    }
+    .developerPosition {
+      color: $quaternaryColor;
+      font-weight: 400;
+    }
+  }
+
+  .navigationColumn {
+    flex: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    @include xs {
+      margin-right: 0px;
+      display: none;
+    }
+    @include md {
+      margin-right: 50px;
+      display: flex;
+    }
+    .navigationItem {
+      margin-left: 20px;
+      font-size: large;
+      font-weight: 400;
+      color: $quaternaryColor;
+      transition: 0.3s;
+      cursor: pointer;
+      &:hover {
+        color: $quinaryColor;
+      }
+    }
+  }
+
+  .toggleMenuContainer {
+    flex: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    justify-self: flex-end;
+    @include xs {
+      display: flex;
+      margin-right: 10px;
+    }
+    @include md {
+      margin-right: 0px;
+      display: none;
+    }
+    .toggleMenuIcon {
+      cursor: pointer;
+    }
+  }
+}

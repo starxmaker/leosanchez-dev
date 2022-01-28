@@ -1,0 +1,62 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+.grayedOutScreen {
+  transition: 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: $secondaryColor, $alpha: 0);
+  visibility: hidden;
+  &.open {
+    background-color: rgba($color: $secondaryColor, $alpha: 0.5);
+    visibility: visible;
+  }
+}
+
+.drawerContainer {
+  opacity: 1 !important;
+  position: fixed;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  top: 0;
+  background-color: $primaryColor;
+  color: $quinaryColor;
+  height: 100vh;
+  @include xs {
+    right: -100vw;
+    width: 100vw;
+  }
+  @include md {
+    width: 400px;
+    right: -400px;
+  }
+  transition: 0.5s;
+  &.open {
+    right: 0;
+  }
+
+  .drawerBody {
+    position: relative;
+    .closeIcon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .itemContainer {
+      padding: 20px 20px 20px 20px;
+      .item {
+        font-size: large;
+        margin-bottom: 1em;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: 0.3s;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
