@@ -8,6 +8,13 @@
     min-height: 30em;
   }
   background-attachment: fixed;
+  /* ios fix */
+  @media (hover: none) {
+    .sectionHeader{
+        background-attachment: scroll;
+    }
+}
+  
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
