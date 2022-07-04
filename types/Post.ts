@@ -1,10 +1,6 @@
+import { PostMetadata } from './PostMetadata';
+
 export type Post = {
-  slug: string;
-  title: string;
-  subtitle: string;
-  imageUrl: string;
+  metadata: PostMetadata;
   articleBody: string;
-  articleDate: number;
-  articleReadingTime: number;
-  excerpt: string;
 };

@@ -54,10 +54,16 @@
     flex-direction: column;
 
     @include xs {
+      flex-basis: 75%;
+      flex-shrink: 0;
+      flex-grow: 0;
       padding: 5px 10px 5px 10px;
     }
     @include sm {
       padding: 15px 15px 15px 15px;
+      flex-basis: auto;
+      flex-shrink: 1;
+      flex-grow: 1;
     }
     .articleDate {
       font-size: 0.8em;
@@ -90,6 +96,11 @@
       display: flex;
       font-size: 0.8em;
       justify-content: flex-end;
+      .articleReadingTimeIcon {
+        align-self: center;
+        margin-top: 1px;
+        margin-right: 0.5em;
+      }
     }
   }
 }

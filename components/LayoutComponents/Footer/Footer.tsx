@@ -4,7 +4,10 @@ const Footer = () => {
   return (
     <div className={style.footerContainer}>
       {/*GITHUB icon */}
-      <div className={style.contactIcon}>
+      <div
+        className={style.contactIcon}
+        onClick={() => (location.href = 'https://github.com/starxmaker/')}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={iconSize}
@@ -16,7 +19,13 @@ const Footer = () => {
         </svg>
       </div>
       {/* LINKEDIN icon*/}
-      <div className={style.contactIcon}>
+      <div
+        className={style.contactIcon}
+        onClick={() =>
+          (location.href =
+            'https://www.linkedin.com/in/leonel-s%C3%A1nchez-424425186/')
+        }
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={iconSize}
@@ -28,7 +37,12 @@ const Footer = () => {
         </svg>
       </div>
       {/* MAIL icon */}
-      <div className={style.contactIcon}>
+      <div
+        className={style.contactIcon}
+        onClick={() =>
+          (location.href = 'mailto:leonel.sanchez.abarca@gmail.com')
+        }
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={iconSize}
@@ -40,7 +54,12 @@ const Footer = () => {
         </svg>
       </div>
       {/* INSTAGRAM icon */}
-      <div className={style.contactIcon}>
+      <div
+        className={style.contactIcon}
+        onClick={() =>
+          (location.href = 'https://www.instagram.com/leo_sanchez93/')
+        }
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={iconSize}
@@ -52,7 +71,10 @@ const Footer = () => {
         </svg>
       </div>
       {/* Facebook icon */}
-      <div className={style.contactIcon}>
+      <div
+        className={style.contactIcon}
+        onClick={() => (location.href = 'https://www.facebook.com/starxmaker/')}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={iconSize}

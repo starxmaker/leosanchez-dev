@@ -7,6 +7,18 @@
     margin-bottom: 1em;
     font-weight: bold;
   }
+  .imageCredit {
+    color: $quaternaryColor;
+    font-size: 0.8em;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    .link {
+      text-decoration: underline;
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+  }
   .articleMainPicture {
     position: relative;
     @include xs {
@@ -34,20 +46,73 @@
       }
       font-weight: bold;
     }
-    .articleDescription {
+    .articleSubtitle {
       margin-top: 1em;
-      font-style: italic;
     }
-
-    .articleTime {
+    .articleDetails {
       margin-top: 1em;
-      width: 100%;
       display: flex;
-      justify-content: flex-end;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      .articleAuthor {
+        font-weight: bold;
+        flex-basis: 50%;
+      }
+      .articleTime {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        .articleReadingTimeIcon {
+          margin-right: 0.5em;
+        }
+        flex-basis: 50%;
+      }
     }
 
     .articleBody {
       margin-top: 2em;
+      width: 100%;
+      max-width: 100%;
+
+      a {
+        color: $quinaryColor;
+        text-decoration: underline;
+      }
+      pre {
+        display: block;
+
+        background-color: black;
+        color: $quinaryColor;
+        padding: 1em;
+
+        overflow-x: scroll;
+      }
+      p {
+        code {
+          background-color: $secondaryColor;
+          color: $quinaryColor;
+          padding: 0.2em;
+          border-radius: 5px;
+        }
+      }
+      p {
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      details {
+        border: 1px solid $quinaryColor;
+        border-radius: 5px;
+        margin-top: 3em;
+        margin-bottom: 3em;
+        padding: 1em;
+        summary {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

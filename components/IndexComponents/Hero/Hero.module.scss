@@ -39,33 +39,31 @@ $mediumHeight: 25em;
       font-size: 1.2em;
       padding-bottom: 0.2em;
       @include xs {
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
       }
       @include sm {
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
       }
       @include md {
         font-size: 1.5em;
-        padding-bottom: 0.5em;
+        padding-bottom: 0.2em;
       }
       font-weight: bold;
       display: -webkit-box;
       -webkit-box-orient: vertical;
     }
-    .articleDescription {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      display: none;
-      @include sm {
-        display: block;
-      }
-      font-style: italic;
-    }
     .articleTime {
       margin-top: auto;
       font-size: 0.8em;
       align-self: flex-end;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      .articleReadingTimeIcon {
+        align-self: center;
+        margin-top: 2px;
+        margin-right: 0.5em;
+      }
     }
     .articleDate {
       font-size: 0.8em;

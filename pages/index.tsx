@@ -1,42 +1,44 @@
 import Hero from '../components/IndexComponents/Hero/Hero';
 import ArticleItem from '../components/IndexComponents/ArticleItem/ArticleItem';
 import style from '../styles/index.module.scss';
-import { Post } from '../types/Post';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { PostMetadata } from '../types/PostMetadata';
+import { PostService } from '../services/PostService';
+import { useRouter } from 'next/router';
+import Container from 'typedi';
 
 type Properties = {
-  posts: Post[];
+  postsMetadata: PostMetadata[];
 };
 
 const Home = (props: Properties) => {
+  const router = useRouter();
   return (
     <div className={style.contentContainer}>
-      {props.posts.length ? (
+      {props.postsMetadata.length ? (
         <div>
           <div className="title"> Nuevo </div>
           <Hero
-            title={props.posts[0].title}
-            subtitle={props.posts[0].subtitle}
-            imageUrl={props.posts[0].imageUrl}
-            articleExcerpt={props.posts[0].excerpt}
-            articleDate={props.posts[0].articleDate}
-            articleReadingTime={props.posts[0].articleReadingTime}
+            slug={props.postsMetadata[0].slug}
+            title={props.postsMetadata[0].title}
+            thumbnailUrl={props.postsMetadata[0].thumbnailUrl}
+            articleExcerpt={props.postsMetadata[0].excerpt}
+            articleDate={props.postsMetadata[0].articleDate}
+            articleReadingTime={props.postsMetadata[0].articleReadingTime}
           />
         </div>
       ) : null}
-      {props.posts.length > 1 ? (
+      {props.postsMetadata.length > 1 ? (
         <div>
           <div className="subtitle"> Más artículos </div>
           <div className={style.articleContainer}>
-            {props.posts
+            {props.postsMetadata
               .filter((e, i) => i !== 0)
               .map((post, index) => (
                 <ArticleItem
                   key={index}
+                  slug={post.slug}
                   title={post.title}
-                  imageUrl={post.imageUrl}
+                  thumbnailUrl={post.thumbnailUrl}
                   articleDate={post.articleDate}
                   articleReadingTime={post.articleReadingTime}
                 />
@@ -44,7 +46,12 @@ const Home = (props: Properties) => {
           </div>
 
           <div className={style.viewMoreContainer}>
-            <button className="primaryButton">Ver más artículos</button>
+            <button
+              className="primaryButton"
+              onClick={() => router.push('/entries')}
+            >
+              Ver más artículos
+            </button>
           </div>
         </div>
       ) : null}
@@ -53,25 +60,11 @@ const Home = (props: Properties) => {
 };
 
 export const getStaticProps = () => {
-  const files: string[] = fs.readdirSync(path.join('posts'));
-  const posts: Post[] = files.map((file) => {
-    const slug: string = file.replace('.md', '');
-    const markdownWithMeta = fs.readFileSync(path.join('posts', file), 'utf8');
-    const { data: frontmatter, content } = matter(markdownWithMeta);
-    return {
-      slug,
-      title: frontmatter.title,
-      subtitle: frontmatter.subtitle,
-      imageUrl: frontmatter.imageUrl,
-      articleBody: content,
-      excerpt: frontmatter.excerpt,
-      articleDate: frontmatter.timestamp,
-      articleReadingTime: frontmatter.readingTime,
-    };
-  });
+  const postService = Container.get(PostService);
+  const postsMetadata: PostMetadata[] = postService.getAllPostMetadata();
   return {
     props: {
-      posts,
+      postsMetadata,
     },
   };
 };
