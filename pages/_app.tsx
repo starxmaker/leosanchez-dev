@@ -3,14 +3,20 @@ import { AppProps } from 'next/app';
 import '../styles/globals.scss';
 import Layout from '../layouts/Layout';
 import { setDefaultAdapters } from '../environment/Environment';
+import Head from 'next/head';
 
 setDefaultAdapters();
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      <Head>
+        <title>Leonel Sánchez | Developer Blog</title>
+      </Head>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   );
 };
 
