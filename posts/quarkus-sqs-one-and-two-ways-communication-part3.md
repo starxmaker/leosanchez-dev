@@ -6,7 +6,7 @@ imageAuthorName: Myznik Egor
 imageAuthorUrl: https://unsplash.com/@shnautsher?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash
 imageSourceUrl: https://unsplash.com/es/s/fotos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
-timestamp: '2022-02-01 09:49:02'
+timestamp: '2022/02/01 09:49:02'
 readingTime: 30
 excerpt: "Esta es la última parte de la serie de artículos que abordan la construcción de un sistema para comunicación uni y bidireccional a través de SQS en Quarkus. En este artículo se aborda la construcción del consumidor."
 author: "Leonel Sánchez"

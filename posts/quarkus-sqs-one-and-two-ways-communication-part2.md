@@ -6,7 +6,7 @@ imageAuthorName: Mael Balland
 imageAuthorUrl: https://unsplash.com/@mael_balland?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash
 imageSourceUrl: https://unsplash.com/es/s/fotos/queue?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
-timestamp: '2022-02-01 09:49:01'
+timestamp: '2022/02/01 09:49:01'
 readingTime: 30
 excerpt: "Continuamos la construcción del sistema de comunicación uni y bidireccional a través de SQS en Quarkus, en particular el productor o emisor de mensajes."
 author: "Leonel Sánchez"

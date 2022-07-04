@@ -6,7 +6,7 @@ imageAuthorName: Silas Köhler
 imageAuthorUrl: https://unsplash.com/@silas_crioco?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash
 imageSourceUrl: https://unsplash.com/es/s/fotos/keys?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
-timestamp: '2022-02-27 09:49:00'
+timestamp: '2022/02/27 09:49:00'
 readingTime: 5
 excerpt: "Quizás necesitemos acceder programáticamente a las API Keys creadas en API Gateway ¿Será posible hacerlo en Java?"
 author: "Leonel Sánchez"

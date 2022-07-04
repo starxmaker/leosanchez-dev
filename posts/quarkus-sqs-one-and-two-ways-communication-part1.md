@@ -6,7 +6,7 @@ imageAuthorName: Alexander Popov
 imageAuthorUrl: https://unsplash.com/@5tep5?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash
 imageSourceUrl: https://unsplash.com/es/s/fotos/traffic?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
-timestamp: '2022-02-01 09:49:00'
+timestamp: '2022/02/01 09:49:00'
 readingTime: 15
 excerpt: "La comunicación por colas por esencia no espera respuesta, pero, por su mayor seguridad y rendimiento, muchos las utilizan con el modelo consulta-respuesta. ¿Cómo implementarlo en Quarkus?"
 author: "Leonel Sánchez"
