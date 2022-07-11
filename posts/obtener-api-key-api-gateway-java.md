@@ -1,7 +1,7 @@
 ---
 title: "Obtener en Java las API Keys de nuestros servicios en API Gateway"
-imageUrl: "https://leonel-sanchez-developer-blog.s3.amazonaws.com/obtener-api-key-api-gateway-java/cover.jpg"
-thumbnailUrl: "https://leonel-sanchez-developer-blog.s3.amazonaws.com/obtener-api-key-api-gateway-java/thumbnail.jpg"
+imageUrl: "https://d1zce54be1puoh.cloudfront.net/obtener-api-key-api-gateway-java/cover.jpg"
+thumbnailUrl: "https://d1zce54be1puoh.cloudfront.net/obtener-api-key-api-gateway-java/thumbnail.jpg"
 imageAuthorName: Silas Köhler
 imageAuthorUrl: https://unsplash.com/@silas_crioco?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash

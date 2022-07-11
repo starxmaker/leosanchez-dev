@@ -1,7 +1,7 @@
 ---
 title: "[Parte 2] Comunicación unidireccional y bidireccional entre microservicios Quarkus a través de colas SQS: Productor de mensajes"
-imageUrl: "https://leonel-sanchez-developer-blog.s3.amazonaws.com/quarkus-sqs-one-and-two-ways-communication/part2-cover.jpg"
-thumbnailUrl: "https://leonel-sanchez-developer-blog.s3.amazonaws.com/quarkus-sqs-one-and-two-ways-communication/part2-thumbnail.jpg"
+imageUrl: "https://d1zce54be1puoh.cloudfront.net/quarkus-sqs-one-and-two-ways-communication/part2-cover.jpg"
+thumbnailUrl: "https://d1zce54be1puoh.cloudfront.net/quarkus-sqs-one-and-two-ways-communication/part2-thumbnail.jpg"
 imageAuthorName: Mael Balland
 imageAuthorUrl: https://unsplash.com/@mael_balland?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash

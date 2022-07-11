@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['images.unsplash.com', 'leonel-sanchez-developer-blog.s3.amazonaws.com'],
+    domains: ['d1zce54be1puoh.cloudfront.net'],
     formats: ['image/avif', 'image/webp'],
   },
   webpack5: true,

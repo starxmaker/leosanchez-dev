@@ -1,7 +1,7 @@
 ---
 title: "[Parte 1] Comunicación unidireccional y bidireccional entre microservicios Quarkus a través de colas SQS: Ambiente local y adaptador del SDK"
-imageUrl: "https://leonel-sanchez-developer-blog.s3.amazonaws.com/quarkus-sqs-one-and-two-ways-communication/part1-cover.jpg"
-thumbnailUrl: "https://leonel-sanchez-developer-blog.s3.amazonaws.com/quarkus-sqs-one-and-two-ways-communication/part1-thumbnail.jpg"
+imageUrl: "https://d1zce54be1puoh.cloudfront.net/quarkus-sqs-one-and-two-ways-communication/part1-cover.jpg"
+thumbnailUrl: "https://d1zce54be1puoh.cloudfront.net/quarkus-sqs-one-and-two-ways-communication/part1-thumbnail.jpg"
 imageAuthorName: Alexander Popov
 imageAuthorUrl: https://unsplash.com/@5tep5?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 imageSourceName: Unsplash
