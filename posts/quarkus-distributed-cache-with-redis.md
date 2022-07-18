@@ -36,6 +36,7 @@ No obstante, no es posible cambiar la arquitectura subyacente del caché local d
 Para llevar a cabo el tutorial, necesitamos lo siguiente:
 - Un proyecto Quarkus
 - Docker (para pruebas locales)
+- Jackson
 - Una instancia Redis (o un contenedor corriendo una imagen de ella)
 - Las entradas y salidas del método al que se desea implementar el caché deben ser serializables y deserializables (aunque hay un workaround que veremos en el próximo artículo)
 
@@ -57,12 +58,11 @@ Para ilustrar el concepto haremos un pequeño servicio de consulta de stock en e
 
 Cabe destacar que todo el proyecto actual se encuentra en el [siguiente repositorio](https://github.com/starxmaker/quarkus-redis-distributed-cache)
 
-## Configuración de adaptadores
+## Configuración de adaptador de caché
 
-Antes de comenzar a codificar nuestra lógica de negocios, construiremos dos adaptadores que se comunicarán con dependencias o servicios externos: un adaptador de caché y un adaptador para la serialización y deserialización de objetos.
+Antes de comenzar a codificar nuestra lógica de negocios, construiremos un adaptador que se encargará de la comunicación con Redis, y así otorgarnos la posibilidad de cambiar de proveedor en el caso que lo necesitemos.
 
-### Adaptador de caché
-Primero definiremos una interfaz que señalará que métodos esperamos ver implementados en nuestro adaptador de caché. Necesitamos la siguiente funcionalidad:
+Primero definiremos una interfaz que señalará qué métodos esperamos ver implementados en nuestro adaptador de caché. Necesitamos la siguiente funcionalidad:
 - Almacenar un valor bajo una llave
 - Obtener el valor a partir de una llave
 - Eliminar un valor en base a una llave
@@ -359,124 +359,10 @@ public void testExpire() throws Exception {
 ```
 </details>
 
-Hemos terminado nuestro adaptador de caché, ahora pasemos al adaptador de serialización/deserialización.
-
-### Adaptador de serialización / deserialización
-
-Partamos definiendo una interfaz. Necesitamos la siguiente funcionalidad:
-
-- Serializar un objeto
-- Deserializar un objeto y transformarlo a una instancia de la clase correspondiente.
-
-Aca hay un pequeño detalle. Si necesitamos deserializar un objeto de una clase genérica, no podemos indicar solamente esta última, sino que también los tipos parámetros. Por ello, definiremos un método de deserialización propio para cada una de las siguientes clases genéricas:
-
-- Lista
-- Mapa
-
-Pueden incluirse más, pero para mantener la simplicidad nos aferraremos a estas.
-
-He aquí el código:
-
-```java
-public interface IObjectMapperAdapter {
-    String serializeObject(Object object);
-    <T> T deserializeObject(String serializedObject, Class<T> clazz);
-    <T> List<T> deserializeList(String serializedObject, Class<T> clazz);
-    <K,V> Map<K,V> deserializeMap(String serializedObject, Class<K> keyClass, Class<V> valueClass);
-}
-```
-
-Como podemos apreciar, para el caso de la lista, enviamos el tipo parámetro de los elementos internos de la misma. Y en el caso de un mapa, definimos los tipos de la llave y del valor.
-
-Pasemos a implementar nuestro adaptador. Utilizaremos Jackson para el mapeo de objetos:
-
-```java
-@ApplicationScoped
-@LookupIfProperty(name = "objectmapper.provider", stringValue = "jackson")
-public class JacksonAdapter implements IObjectMapperAdapter {
-    private ObjectMapper objectMapper;
-
-    public JacksonAdapter(ObjectMapper objectMapper){
-        this.objectMapper = objectMapper;
-    }
-}
-```
-
-Como podemos ver, inyectamos el mapeador de objetos a través del constructor. Esto lo hacemos para poder configurar la serialización de objetos de terceros (lo veremos en otro artículo).
-
-También podemos ver que definimos que si la propiedad `objectmapper.provider` sea `jackson`, automaticamente inyecte este bean cuando se quiera un elemento de tal interfaz. Asi que ahora vamos a nuestro `application.properties` y agregamos la siguiente línea:
-
-```properties
-objectmapper.provider=jackson
-```
-
-Pasemos ahora a implementar el método de serialización. Para ello hacemos un proxy al objectMapper de Jackson y permitimos que genere la cadena de texto correspondiente:
-
-```java
-@Override
-public String serializeObject(Object object) {
-    try {
-        return objectMapper.writeValueAsString(object);
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-}
-```
-
-Pasemos ahora a los métodos de deserialización. Partamos con los objetos simples:
-
-```java
-@Override
-public <T> T deserializeObject(String serializedObject, Class<T> clazz) {
-    try {
-        return objectMapper.readValue(serializedObject, clazz);
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-}
-```
-
-Al igual que el método anterior, es solo un proxy que manda al objectMapper a construir un objeto en base a una cadena de texto.
-
-Ahora pasemos a la deserialización de listas:
-
-```java
-@Override
-public <T> List<T> deserializeList(String serializedObject, Class<T> clazz) {
-    try {
-        return objectMapper.readValue(serializedObject, TypeFactory.defaultInstance().constructCollectionType(List.class, clazz));
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-}
-```
-
-Como podemos apreciar, construyo el tipo deseado con `TypeFactory`, indicándole que deseo una lista del tipo indicado en el método. Esa información se la envío al mapeador para sepa cómo interpretar el objeto.
-
-Por último pasemos a la deserialización de mapas:
-
-```java
-@Override
-public <K, V> Map<K, V> deserializeMap(String serializedObject, Class<K> keyClass, Class<V> valueClass) {
-    try {
-        return objectMapper.readValue(serializedObject, TypeFactory.defaultInstance().constructMapType(Map.class, keyClass, valueClass));
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
-}
-```
-
-Aquí hacemos algo parecido al caso anterior. Llamamos a `TypeFactory` para construir un mapa cuyos tipos internos sean los que definimos.
-
-<details>
-<summary>Pruebas de integración (opcional)</summary>
-No me detendré a describir las pruebas de integración para este caso debido a que son muchas por la gran variedad de tipos que pueden existir. De cualquier manera, pueden encontrarlas en el <a href="https://github.com/starxmaker/quarkus-redis-distributed-cache/blob/main/src/test/java/dev/leosanchez/JacksonAdapterIT.java">repositorio del proyecto</a>
-</details>
-
-Hemos terminado con nuestro adaptador de serialización/deserialización.
+Hemos terminado nuestro adaptador de caché. Ahora pasemos a construir el servicio que administrará el caché e implementará nuestra lógica de negocios.
 
 ## Construcción de servicio de administración de caché
-Construiremos una capa que se comunicará con nuestros adaptadores y con la cual los interceptores se comunicarán. 
+Construiremos una capa que se comunicará con nuestro adaptador y con la cual los interceptores se comunicarán. 
 
 ```java
 @ApplicationScoped
@@ -485,11 +371,26 @@ public class CachedService {
     @Inject
     ICacheAdapter cacheAdapter;
 
-    @Inject
-    IObjectMapperAdapter objectMapperAdapter;
+    ObjectMapper objectMapper;
+
+    public CachedService(){
+        objectMapper = new ObjectMapper();
+        // enable default typing
+        // NOTE: never enable this configuration (Basetype: Object) to deserialize json data from external sources,
+        // because someone could send a json string with an exploitable type which could lead to remote
+        // code execution. We are enabling it because we will deserialize only json data serialized by us and it is not
+        // accesible for external sources.
+        PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator
+            .builder()
+            .allowIfBaseType(Object.class)
+            .build();
+        objectMapper.activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.EVERYTHING);
+    }
 
 }
 ```
+
+Antes de seguir, cabe destacar que hemos también creado un `objectMapper` de Jackson. Si observamos, también estamos configurándolo para utilizar `DefaultTyping` para todo tipo (`Object.class`). Hay que tener mucho cuidado con utilizar esta configuración en contextos tales como la deserialización de un payload obtenido directamente de una fuente externa. Esto porque el deserializador ahora buscará por el tipo al que debe mapear en el payload, lo que abre la puerta a poder enviar payloads con tipos vulnerables y así permitir ejecución remota de código. En este caso lo hemos utilizado en payloads que nosotros mismos hemos serializado y que provienen de una fuente interna, por lo que el riesgo de seguridad es menor.
 
 Este servicio expondrá los siguientes métodos:
 - Almacenar respuesta
@@ -502,8 +403,8 @@ Este servicio expondrá los siguientes métodos:
 Partamos con el primer método: el almacenamiento de la respuesta. Recibiremos la clave, el objeto y un tiempo de expiración. Serializamos el objeto, lo guardamos y le colocamos el tiempo de vida:
 
 ```java
-public void saveCachedResponse(String generatedKey, Object response, Integer expirationTime) {
-    String serializedObject = objectMapperAdapter.serializeObject(response);
+public void saveCachedResponse(String generatedKey, Object response, Integer expirationTime) throws JsonProcessingException{
+    String serializedObject = objectMapper.writeValueAsString(response);
     cacheAdapter.set(generatedKey, serializedObject);
     cacheAdapter.setExpire(generatedKey, expirationTime);
 }
@@ -512,30 +413,29 @@ public void saveCachedResponse(String generatedKey, Object response, Integer exp
 Ahora vamos al método que recupera las respuestas. Pero antes de comenzarlo, implementaremos un método que deserializará el objeto serializado:
 
 ```java
-private Object deserialize(String serializedObject, Class<?> returnType, Class<?>[] parameterTypes) {
-    if (returnType.equals(List.class)) {
-        Class<?> subClass = parameterTypes[0];
-        return objectMapperAdapter.deserializeList(serializedObject, subClass);
-    } else if (returnType.equals(Map.class)) {
-        Class<?> keyClass =  parameterTypes[0];
-        Class<?> valueClass = parameterTypes[1];
-        return objectMapperAdapter.deserializeMap(serializedObject, keyClass, valueClass);
-    } else {
-        return objectMapperAdapter.deserializeObject(serializedObject, returnType);
-    }
+private Object deserialize(String serializedObject) throws JsonProcessingException, JsonMappingException {
+    return objectMapper.readValue(serializedObject, Object.class);
 }
 ```
 
-Como podemos ver, el método recibe el objeto serializado, el tipo de retorno y los tipos parámetro en caso de que el tipo de retorno sea genérico. Luego, si el tipo de retorno es una lista, llama al metodo de deserialización de lista de nuestro adaptador con el tipo parámetro correspondiente. Lo mismo ocurre si el tipo es un mapa. Si no aplican los casos, deserializa el objeto utilizando el tipo de retorno básico entregado.
+Como podemos ver, el método recibe el objeto serializado. Como activamos que al serializar un objeto se agregue su tipo, no es necesario que nosotros lo indiquemos, sino que el deserializador lo obtendrá del payload.
+
+Luego, también es importante definir un método para saber si una entrada existe en el caché. No profundizaremos, pues es sólo un proxy al adaptador.
+
+```java
+public Boolean exists (String key) {
+    return cacheAdapter.check(key);
+}
+```
 
 Ahora podemos pasar a la implementación de la recuperación de la respuesta. Nuestro método obtendrá la respuesta del caché y deserializará en base a los tipos que definamos:
 
 ```java
-public Optional<Object> retrieveCachedResponse(String key, Class<?> returnType, Class<?>[] parameterTypes) {
+public Optional<Object> retrieveCachedResponse(String key) throws JsonMappingException, JsonProcessingException{
     if (exists(key)){
         Optional<String> serializedObject = cacheAdapter.get(key);
         if (serializedObject.isPresent()) {
-            Object response = deserialize(serializedObject.get(), returnType, parameterTypes);
+            Object response = deserialize(serializedObject.get());
             return Optional.of(response); 
         }
     }
@@ -585,7 +485,7 @@ private String generateCompositeKey(Object[] parameters) throws Exception {
     } else {
         String concatenatedValues = "";
         for (Object parameter : parameters) {
-            concatenatedValues += objectMapperAdapter.serializeObject(parameter);
+            concatenatedValues += objectMapper.writeValueAsString(parameter);
         }
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         digest.reset();
@@ -608,12 +508,9 @@ public String generateKey(String cacheName, Object[] parameters, Annotation[][] 
 }
 ```
 
-Ahora definiremos rápidamente los métodos para comprobar que una llave exista, para eliminar una entrada de caché o borrar el caché completo. No entraré en mayores detalles pues, como podrán ver, solo se trata de proxies:
+Ahora definiremos rápidamente los métodos para eliminar una entrada de caché o borrar el caché completo. No entraré en mayores detalles pues, como podrán ver, solo se trata de proxies:
 
 ```java
-public Boolean exists (String key) {
-    return cacheAdapter.check(key);
-}
 public void removeSingleEntry(String key) {
     cacheAdapter.delete(key);
 }
@@ -1003,23 +900,15 @@ public class StockResponse {
     private String product;
     private Integer availableStock;
     private Date lastUpdate;
+
+    public StockResponse() {}
+
     public StockResponse(String product, Integer availableStock) {
         this.product = product;
         this.availableStock = availableStock;
         this.lastUpdate = new Date();
     }
-    public String getProduct() {
-        return product;
-    }
-    public Integer getAvailableStock() {
-        return availableStock;
-    }
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-    public void setLastUpdate(){
-        this.lastUpdate = new Date();
-    }
+    // getters and setters
 }
 ```
 
@@ -1139,4 +1028,4 @@ public Response query(@PathParam("name") String productName) {
 }
 ```
 
-Esto ocurre debido a que Response, si bien puede ser serializado por Jackson, no puede ser deserializado *out of the box*. Para que el caché pueda funcionar, necesitamos implementar un Deserializador personalizado. Esto lo veremos en el siguiente artículo.
+Esto ocurre debido a que Response, si bien puede ser serializado por Jackson, no puede ser deserializado *out of the box*. Para que el caché pueda funcionar, necesitamos implementar un deeserializador personalizado, lo que veremos en el siguiente artículo.
