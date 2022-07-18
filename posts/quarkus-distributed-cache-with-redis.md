@@ -18,8 +18,6 @@ tags:
     - "Distribuido"
 ---
 
-# Cache distribuido con Redis y Quarkus
-
 Quarkus posee una asombrosa librería que permite implementar un caché local en nuestras aplicaciones al incluir tan solo algunas anotaciones en nuestros endpoints o métodos. No me dedicaré a hacer una mayor introducción de la funcionalidad (si quieren saber más, pueden verlo [aquí](https://quarkus.io/guides/cache)), pero si destacaré su carácter declarativo, lo que permite una implementación rápida sin tener que adaptar nuestra lógica de negocios para ello.
 
 No obstante, un caché local no es muy escalable. Si hacemos escalamiento horizontal, solo la instancia que creó el caché podrá beneficiarse de él. Esto trae problemas en el caso de que expongamos nuestras instancias en un balanceador de carga, ya que nada asegura que la misma instancia atienda las peticiones de un mismo usuario. Asimismo, si cada instancia tiene un caché local, la administración se vuelve una pesadilla.
@@ -888,7 +886,18 @@ public void testCacheDifferentOrder(){
 ```
 </details>
 
-Hemos terminado el desarrollo de nuestro sistema de caché. Ahora procederemos a probarlo con un ejemplo simple.
+Hemos terminado el desarrollo de nuestro sistema de caché. 
+
+## Nota para modo nativo
+
+Si nuestros objetos tienen propiedades de tipos no primitivos de terceros, es necesario registar las clases de estas propiedades para que no sean descartadas al momento de la compilación nativa. Esto podemos hacerlo en una clase vacía indicando con la anotación `RegisterForReflection` qué clases queremos conservar:
+
+```java
+@RegisterForReflection(targets = {Date.class})
+public class MyReflectionConfiguration {
+    
+}
+```
 
 ## Recurso de ejemplo - Verificación de Stock
 

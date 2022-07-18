@@ -18,8 +18,6 @@ tags:
     - "API Keys"
 ---
 
-# Obtener en Java las API Keys de nuestros servicios en API Gateway
-
 En muchas ocasiones quizás necesitemos que nuestro servicio acceda a las API Keys creadas en API Gateway. En Internet  hay tutoriales para hacerlo tanto en Node como a través de CLI, pero no en Java. Por ello me puse a revisar el SDK v2 de AWS para Java y encontré una manera para hacerlo que aprovecho de compartir con la comunidad.
 
 Para el caso de Quarkus o imagenes nativas, la compatibilidad no es out of the box. Lean el final de este mini tutorial para saber como hacerlo compatible.
