@@ -47,7 +47,7 @@ Podrán encontrar el código fuente de nuestro proyecto en el siguiente enlace: 
 
 A continuación podemos ver un diagrama de lo que haremos:
 
-![Quarkus SQS Diagram implementation](https://leonel-sanchez-developer-blog.s3.amazonaws.com/quarkus-sqs-one-and-two-ways-communication/QuarkusSQSImplementationDiagram.png "Quarkus SQS Diagram implementation")
+![Quarkus SQS Diagram implementation](https://d1zce54be1puoh.cloudfront.net/quarkus-sqs-one-and-two-ways-communication/QuarkusSQSImplementationDiagram.png "Quarkus SQS Diagram implementation")
 
 
 # Requerimientos

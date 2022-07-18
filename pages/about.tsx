@@ -54,7 +54,7 @@ const About = () => {
           >
             <Image
               src={
-                'https://leonel-sanchez-developer-blog.s3.amazonaws.com/badges/aws-certified-cloud-practitioner.png'
+                'https://d1zce54be1puoh.cloudfront.net/badges/aws-certified-cloud-practitioner.png'
               }
               width={150}
               height={150}
@@ -64,7 +64,7 @@ const About = () => {
         <div className={style.imageContainer}>
           <Image
             src={
-              'https://leonel-sanchez-developer-blog.s3.amazonaws.com/BLOG_AUTHOR_PIC.jpg'
+              'https://d1zce54be1puoh.cloudfront.net/BLOG_AUTHOR_PIC.jpg'
             }
             layout={'fill'}
             objectFit={'cover'}
