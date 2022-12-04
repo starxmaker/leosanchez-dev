@@ -12,7 +12,8 @@ const About = () => {
             desarrollo front end (principalmente por encontrarlo dinámico y
             creativo), también me he especializado en aplicaciones a nivel de
             servidor, siempre en busqueda de implementar una arquitectura
-            robusta, confiable y escalable.
+            robusta, confiable y escalable. Actualmente trabajo en el equipo de datos 
+            no regulados de Tessera Data.
           </p>
           <p>
             En este último tiempo me he focalizado en la implementación de
@@ -34,38 +35,64 @@ const About = () => {
             respectivas cosmovisiones e influyen en nuestro día a día.
           </p>
           <p>
-            Actualmente trabajo en el equipo de Tranciti de Waypoint
-            Telecomunicaciones, en los que he trabajado en aplicaciones en
-            backend, frontend web y móvil, CLIs y scripts de automatización.
-          </p>
-          <p>
             El motivo de este blog no es otro que compartir mis descubrimientos
             y experimientos personales en ámbitos de tecnología con la comunidad
             (a la cuál todo desarrollador, sin excepción, depende
             completamente). Espero que puedan beneficiarse en gran medida de su
             contenido.
           </p>
-          <div
-            style={{ cursor: 'pointer' }}
-            onClick={() =>
-              (location.href =
-                'https://www.credly.com/badges/8b31bda6-d5ec-4b95-aa58-47145037a2ce/public_url')
-            }
-          >
-            <Image
-              src={
-                'https://d1zce54be1puoh.cloudfront.net/badges/aws-certified-cloud-practitioner.png'
+          <div style={{display: "flex"}}>
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                (location.href =
+                  'https://www.credly.com/badges/b5e84158-9863-413a-b8b9-41aaab42fbc0/public_url')
               }
-              width={150}
-              height={150}
-            />
+            >
+              <Image
+                src={
+                  'https://d1zce54be1puoh.cloudfront.net/badges/aws-certified-developer-associate.png'
+                }
+                width={150}
+                height={150}
+              />
+            </div>
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                (location.href =
+                  'https://www.credly.com/badges/8b31bda6-d5ec-4b95-aa58-47145037a2ce/public_url')
+              }
+            >
+              <Image
+                src={
+                  'https://d1zce54be1puoh.cloudfront.net/badges/aws-certified-cloud-practitioner.png'
+                }
+                width={150}
+                height={150}
+              />
+            </div>
+            
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                (location.href =
+                  'https://www.credly.com/badges/961b31f2-4d8d-470a-8145-4ee92d289284/public_url')
+              }
+            >
+              <Image
+                src={
+                  'https://d1zce54be1puoh.cloudfront.net/badges/microsoft-certified-azure-fundamentals.png'
+                }
+                width={150}
+                height={150}
+              />
+            </div>
           </div>
         </div>
         <div className={style.imageContainer}>
           <Image
-            src={
-              'https://d1zce54be1puoh.cloudfront.net/BLOG_AUTHOR_PIC.jpg'
-            }
+            src={'https://d1zce54be1puoh.cloudfront.net/BLOG_AUTHOR_PIC.jpg'}
             layout={'fill'}
             objectFit={'cover'}
           />
